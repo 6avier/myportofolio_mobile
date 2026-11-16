@@ -11,9 +11,9 @@ void main() {
 
     expect(find.text('Selamat datang di MyPortfolio Mobile!'), findsOneWidget);
     expect(find.byType(InfoCard), findsNWidgets(3));
-    expect(find.text('2406000001'), findsOneWidget);
-    expect(find.text('Burhan'), findsOneWidget);
-    expect(find.text('PBP A'), findsOneWidget);
+    expect(find.text('2506656886'), findsOneWidget);
+    expect(find.text('Kemas Xavier Alvaresyah'), findsOneWidget);
+    expect(find.text('PBP C'), findsOneWidget);
 
     expect(find.byType(ItemCard), findsNWidgets(3));
     expect(find.text('Lihat Proyek'), findsOneWidget);
