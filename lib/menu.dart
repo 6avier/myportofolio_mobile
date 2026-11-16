@@ -35,13 +35,17 @@ class MyHomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // Baris horizontal untuk menampilkan 3 InfoCard secara sejajar.
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                InfoCard(title: 'NPM', content: npm),
-                InfoCard(title: 'Name', content: nama),
-                InfoCard(title: 'Class', content: kelas),
-              ],
+            // Expanded membagi lebar sama rata dan IntrinsicHeight menyamakan
+            // tinggi kartu, jadi nama panjang tidak membuat baris ini overflow.
+            IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Expanded(child: InfoCard(title: 'NPM', content: npm)),
+                  Expanded(child: InfoCard(title: 'Name', content: nama)),
+                  Expanded(child: InfoCard(title: 'Class', content: kelas)),
+                ],
+              ),
             ),
             const SizedBox(height: 16.0),
             // Bagian tengah: pesan sambutan dan kisi tombol menu portofolio.
@@ -94,9 +98,8 @@ class InfoCard extends StatelessWidget {
       // Memberikan efek bayangan kartu elevasi 2 unit.
       elevation: 2.0,
       child: Container(
-        // Menyesuaikan lebar kartu dengan proporsi layar (dibagi 3.5).
-        width: MediaQuery.of(context).size.width / 3.5,
-        padding: const EdgeInsets.all(16.0),
+        // Lebar kartu ditentukan oleh Expanded di induknya, bukan angka tetap.
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
         // Menyusun teks title dan content secara vertikal.
         child: Column(
           children: [
