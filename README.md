@@ -68,3 +68,19 @@ flutter test      # widget test untuk halaman menu
 5. **`BuildContext`** adalah penunjuk ke posisi sebuah widget di dalam widget tree (secara teknis `Element`-nya). Fungsinya untuk menelusuri pohon ke atas dan mencari widget leluhur atau data bersama, misalnya `Theme.of(context)`, `MediaQuery.of(context)`, dan `ScaffoldMessenger.of(context)`. Setiap method `build(BuildContext context)` menerimanya dari Flutter. Di proyek ini `Theme.of(context).colorScheme.primary` memberi warna `AppBar`, dan `ScaffoldMessenger.of(context)` di `ItemCard` dipakai untuk menampilkan `SnackBar`. Pencarian itu hanya berhasil jika `context`-nya berada di bawah widget yang dicari, misalnya di bawah `MaterialApp`. Karena itu `context` dari bagian atas pohon tidak bisa dipakai untuk mencari widget di bawahnya.
 
 6. **Hot reload** memasukkan kode Dart yang baru disimpan ke aplikasi yang sedang berjalan di mode debug lalu membangun ulang widget tree, sehingga hasil perubahan tampil dalam hitungan detik dan state aplikasi tetap terjaga. **Hot restart** memuat ulang seluruh kode dan menjalankan `main()` dari awal, jadi state kembali ke kondisi awal, tetapi masih lebih cepat daripada menjalankan ulang aplikasi dari nol. Hot reload tidak cukup, dan kita harus hot restart atau full restart (stop lalu `flutter run` lagi), saat: mengubah isi `main()` atau inisialisasi variabel global dan field `static`, mengubah kode yang hanya berjalan sekali seperti `initState`, mengubah `enum` menjadi `class` atau sebaliknya, serta mengubah tipe generik. Full restart juga wajib saat menambah dependency di `pubspec.yaml` atau mengubah kode native di folder `android/` atau `ios/`, karena bagian itu harus dikompilasi ulang.
+
+### Penggunaan AI
+
+Saya menggunakan AI dalam pengerjaan tugas ini.
+
+**Tools:** Claude (Claude Code), model Sonnet.
+
+**Strategi prompting:** Saya memberikan requirement tugas dan struktur proyek yang sedang dikerjakan, lalu meminta AI membantu menjelaskan konsep Flutter dan memberikan arahan implementasi langkah demi langkah. Jika menemukan error, saya memberikan pesan error atau bagian kode terkait untuk ditelusuri penyebabnya. Saya juga menggunakan AI untuk membantu mengevaluasi struktur widget dan memastikan implementasi sesuai dengan kebutuhan tugas.
+
+**Bagian yang dibantu:**
+
+- Penyusunan struktur awal aplikasi Flutter dan pembagian widget ke dalam file.
+- Implementasi halaman menu utama, termasuk kartu identitas dan tombol aksi.
+- Pemahaman penggunaan widget Flutter seperti `MaterialApp`, `Scaffold`, `Column`, `Row`, dan `GridView`.
+- Troubleshooting serta pengecekan hasil melalui `flutter analyze` dan `flutter test`.
+- Penyusunan penjelasan konsep Flutter dan README ini.
