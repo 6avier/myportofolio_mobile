@@ -16,9 +16,28 @@ void main() {
     expect(find.text('PBP C'), findsOneWidget);
 
     expect(find.byType(ItemCard), findsNWidgets(3));
-    expect(find.text('Lihat Proyek'), findsOneWidget);
-    expect(find.text('Tambah Proyek'), findsOneWidget);
+    expect(find.text('Lihat Experience'), findsOneWidget);
+    expect(find.text('Tambah Experience'), findsOneWidget);
     expect(find.text('Logout'), findsOneWidget);
+  });
+
+  testWidgets('every menu card has its own background color from its model',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(const MyApp());
+
+    final cards = tester.widgetList<ItemCard>(find.byType(ItemCard)).toList();
+    final colors = cards.map((card) {
+      final material = tester.widget<Material>(
+        find.descendant(
+          of: find.byWidget(card),
+          matching: find.byType(Material),
+        ).first,
+      );
+      expect(material.color, card.item.color);
+      return material.color;
+    }).toSet();
+
+    expect(colors.length, cards.length);
   });
 
   testWidgets('tapping a menu card shows a SnackBar with its name',
@@ -26,11 +45,12 @@ void main() {
     await tester.pumpWidget(const MyApp());
     expect(find.byType(SnackBar), findsNothing);
 
-    await tester.tap(find.text('Lihat Proyek'));
+    await tester.tap(find.text('Lihat Experience'));
     await tester.pump();
 
     expect(find.byType(SnackBar), findsOneWidget);
-    expect(find.text('Kamu telah menekan tombol Lihat Proyek!'), findsOneWidget);
+    expect(
+        find.text('Kamu telah menekan tombol Lihat Experience!'), findsOneWidget);
 
     // A second tap replaces the current SnackBar instead of stacking them.
     await tester.tap(find.text('Logout'));
