@@ -1,4 +1,5 @@
 import 'package:material_ui/material_ui.dart';
+import 'package:myportofolio_mobile/project_form.dart';
 import 'package:myportofolio_mobile/widgets/left_drawer.dart';
 
 class MyHomePage extends StatelessWidget {
@@ -11,6 +12,7 @@ class MyHomePage extends StatelessWidget {
   final List<ItemHomepage> items = [
     ItemHomepage("Lihat Experience", Icons.work, Colors.blue.shade700),
     ItemHomepage("Tambah Experience", Icons.add_circle, Colors.green.shade700),
+    ItemHomepage("Tambah Proyek", Icons.post_add, Colors.purple.shade700),
     ItemHomepage("Logout", Icons.logout, Colors.red.shade700),
   ];
 
@@ -32,8 +34,9 @@ class MyHomePage extends StatelessWidget {
       ),
       // Drawer menu untuk berpindah antarhalaman.
       drawer: const LeftDrawer(),
-      // Body halaman utama dengan padding di sekelilingnya.
-      body: Padding(
+      // Body halaman utama dengan padding di sekelilingnya. SingleChildScrollView
+      // membuat halaman bisa digulir kalau kartu tidak muat di layar kecil.
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,7 +71,9 @@ class MyHomePage extends StatelessWidget {
                   ),
                   // GridView menampilkan kartu tombol dalam tata letak kisi 3 kolom.
                   GridView.count(
-                    primary: true,
+                    // Grid tidak menggulir sendiri; yang menggulir halamannya.
+                    primary: false,
+                    physics: const NeverScrollableScrollPhysics(),
                     padding: const EdgeInsets.all(20),
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
@@ -150,6 +155,16 @@ class ItemCard extends StatelessWidget {
             ..showSnackBar(
               SnackBar(content: Text("Kamu telah menekan tombol ${item.name}!")),
             );
+
+          // Navigasi ke halaman yang sesuai.
+          if (item.name == "Tambah Proyek") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ProjectFormPage(),
+              ),
+            );
+          }
         },
         child: Container(
           padding: const EdgeInsets.all(8),
