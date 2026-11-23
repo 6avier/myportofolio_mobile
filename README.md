@@ -99,3 +99,19 @@ Saya menggunakan AI dalam pengerjaan tugas ini.
 3. Formulir Experience disusun sebagai satu `Column` vertikal di dalam `SingleChildScrollView`, karena urutan isiannya alami dibaca dari atas ke bawah (judul, deskripsi, kategori, tanggal, thumbnail) dan satu kolom paling nyaman di layar ponsel yang sempit. Setiap input dibungkus `Padding(8)` agar ada jarak yang sama antarkolom dan pesan error tidak menempel ke kolom berikutnya. Sakelar "Masih berjalan" memakai `SwitchListTile` supaya label dan sakelarnya berada di satu baris, dan tombol Simpan dibungkus `Align` agar berada di tengah. `SingleChildScrollView` menjadi penting ketika ruang layar terbatas: tanpa widget ini, `Column` yang lebih tinggi dari layar akan overflow. Saat papan ketik muncul, `Scaffold` mengecilkan area `body`, dan `SingleChildScrollView` membuat semua kolom serta tombol Simpan tetap bisa digulir dan dijangkau. Hal ini saya cek di ukuran 375x812.
 
 4. `GlobalKey<FormState>` (`_formKey`) adalah kunci yang dipasang di widget `Form` sehingga kode di luar build bisa mengakses state formulir. Setiap `TextFormField` punya `validator`, yaitu fungsi yang mengembalikan pesan error (`String`) bila isiannya tidak valid atau `null` bila valid. Saat tombol Simpan ditekan, `_formKey.currentState!.validate()` menjalankan semua validator sekaligus, menampilkan pesan error di bawah kolom yang salah, dan mengembalikan `true` hanya jika semuanya lolos. Hanya pada kondisi itu `showDialog()` dipanggil. Contoh nilai yang ditolak: `bukan-url` pada kolom Thumbnail. Kolom itu memakai `keyboardType: TextInputType.url`, tetapi jenis papan ketik hanya mengubah tombol yang ditampilkan dan tidak membatasi apa yang bisa diketik atau ditempel, sehingga `validateThumbnail` tetap harus memeriksa bahwa isinya URL dengan skema `http`/`https` dan host. Hal yang sama berlaku untuk tanggal: `showDatePicker()` menjamin formatnya tanggal, tetapi tidak menjamin tanggal selesai jatuh setelah tanggal mulai, jadi aturan itu tetap dicek di validator. Judul yang hanya berisi spasi juga ditolak karena validator memakai `trim()`.
+
+### Penggunaan AI
+
+Saya menggunakan AI sebagai alat bantu selama pengerjaan tugas ini.
+
+**Tools:** Claude (Claude Code), model Sonnet.
+
+**Strategi prompting:** Saya memberikan requirement tugas dan konteks struktur proyek yang sedang dikerjakan, kemudian menggunakan AI untuk membantu memahami konsep Flutter, mencari referensi implementasi, serta mendiskusikan solusi ketika menemukan kendala. Saya juga menggunakan AI untuk membantu meninjau hasil implementasi agar sesuai dengan kebutuhan tugas.
+
+**Bagian yang dibantu:**
+
+- Konsultasi terkait implementasi navigasi halaman menggunakan `Navigator`.
+- Referensi penggunaan `Scaffold`, `Drawer`, dan konsistensi tema antarhalaman.
+- Bantuan dalam memahami struktur formulir Experience dan validasi input.
+- Diskusi terkait penggunaan `Form`, `GlobalKey<FormState>`, dan `TextFormField`.
+- Bantuan troubleshooting dan evaluasi implementasi melalui `flutter analyze` dan `flutter test`.
