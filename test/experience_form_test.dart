@@ -131,8 +131,12 @@ void main() {
       findsOneWidget,
     );
 
+    // Picking a date or turning on "Masih berjalan" clears the error at once,
+    // without pressing Simpan again.
+    await pickDay(tester, 'Tanggal Mulai', 15);
+    expect(find.text('Tanggal mulai wajib dipilih!'), findsNothing);
+
     await tapVisible(tester, find.text('Masih berjalan'));
-    await tapVisible(tester, find.text('Simpan'));
     expect(
       find.text('Pilih tanggal selesai atau aktifkan "Masih berjalan"!'),
       findsNothing,

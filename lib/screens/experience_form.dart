@@ -41,6 +41,11 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
   final _startDateController = TextEditingController();
   final _endDateController = TextEditingController();
 
+  // Kunci per field tanggal supaya pesan error bisa diperbarui begitu tanggal
+  // dipilih, tanpa harus menekan Simpan lagi.
+  final _startDateFieldKey = GlobalKey<FormFieldState<String>>();
+  final _endDateFieldKey = GlobalKey<FormFieldState<String>>();
+
   @override
   void dispose() {
     _startDateController.dispose();
@@ -89,6 +94,17 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
         _endDateController.text = formatDate(picked);
       }
     });
+    _revalidateDateErrors();
+  }
+
+  /// Validasi ulang field tanggal yang sedang menampilkan error. Field tanggal
+  /// selesai ikut dicek karena urutannya bergantung pada tanggal mulai.
+  void _revalidateDateErrors() {
+    for (final key in [_startDateFieldKey, _endDateFieldKey]) {
+      if (key.currentState?.hasError ?? false) {
+        key.currentState!.validate();
+      }
+    }
   }
 
   /// Mengembalikan form dan seluruh state ke kondisi awal setelah disimpan.
@@ -244,6 +260,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  key: _startDateFieldKey,
                   controller: _startDateController,
                   readOnly: true,
                   decoration: _decoration(
@@ -273,12 +290,14 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                       _endDateController.clear();
                     }
                   });
+                  _revalidateDateErrors();
                 },
               ),
               // === Tanggal selesai ===
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  key: _endDateFieldKey,
                   controller: _endDateController,
                   readOnly: true,
                   enabled: !_isOngoing,
