@@ -4,22 +4,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:myportofolio_mobile/main.dart';
 
 import 'test_helpers.dart';
+
 import 'package:myportofolio_mobile/screens/experience_form.dart';
 import 'package:myportofolio_mobile/screens/menu.dart';
-
-/// The test font draws every glyph as a square as wide as its font size, so the
-/// DrawerHeader text overflows in tests even though it fits with a real font.
-/// Ignore only that overflow; every other error still fails the test.
-void ignoreTestFontOverflow() {
-  final originalOnError = FlutterError.onError;
-  FlutterError.onError = (FlutterErrorDetails details) {
-    if (details.exceptionAsString().contains('A RenderFlex overflowed')) {
-      return;
-    }
-    originalOnError?.call(details);
-  };
-  addTearDown(() => FlutterError.onError = originalOnError);
-}
 
 Future<void> openFormFromCard(WidgetTester tester) async {
   await tester.pumpWidget(MyApp(apiClient: fakeApiClient()));
