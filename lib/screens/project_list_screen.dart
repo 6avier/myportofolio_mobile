@@ -35,8 +35,9 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
     }
   }
 
-  String _errorText(Object? error) =>
-      error is ApiException ? error.userMessage : 'Tidak bisa terhubung ke server.';
+  String _errorText(Object? error) => error is ApiException
+      ? error.userMessage
+      : 'Tidak bisa terhubung ke server.';
 
   @override
   Widget build(BuildContext context) {

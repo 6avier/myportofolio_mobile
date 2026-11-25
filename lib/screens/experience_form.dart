@@ -65,7 +65,8 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
     final text = value?.trim() ?? "";
     if (text.isEmpty) return null;
     final uri = Uri.tryParse(text);
-    final isWebUrl = uri != null &&
+    final isWebUrl =
+        uri != null &&
         (uri.scheme == 'http' || uri.scheme == 'https') &&
         uri.host.isNotEmpty;
     if (!isWebUrl) {
@@ -75,7 +76,8 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
   }
 
   Future<void> _pickDate({required bool isStart}) async {
-    final initial = (isStart ? _startDate : _endDate) ??
+    final initial =
+        (isStart ? _startDate : _endDate) ??
         (isStart ? DateTime.now() : (_startDate ?? DateTime.now()));
     final picked = await showDatePicker(
       context: context,
@@ -166,9 +168,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
       labelText: label,
       hintText: hint,
       suffixIcon: suffix,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(5.0),
-      ),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
     );
   }
 
@@ -246,10 +246,12 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                   decoration: _decoration("Kategori"),
                   initialValue: _category,
                   items: categories
-                      .map((category) => DropdownMenuItem(
-                            value: category,
-                            child: Text(category),
-                          ))
+                      .map(
+                        (category) => DropdownMenuItem(
+                          value: category,
+                          child: Text(category),
+                        ),
+                      )
                       .toList(),
                   onChanged: (String? newValue) {
                     setState(() => _category = newValue!);

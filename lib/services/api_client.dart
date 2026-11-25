@@ -66,7 +66,10 @@ class ApiClient {
         .toList();
   }
 
-  Future<Project> createProject(Project project, {required String token}) async {
+  Future<Project> createProject(
+    Project project, {
+    required String token,
+  }) async {
     final response = await _client.post(
       _uri('/api/v1/projects/'),
       headers: {..._jsonHeaders, 'Authorization': 'Token $token'},
