@@ -2,6 +2,8 @@ import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:myportofolio_mobile/main.dart';
+
+import 'test_helpers.dart';
 import 'package:myportofolio_mobile/screens/experience_form.dart';
 import 'package:myportofolio_mobile/screens/menu.dart';
 
@@ -20,7 +22,7 @@ void ignoreTestFontOverflow() {
 }
 
 Future<void> openFormFromCard(WidgetTester tester) async {
-  await tester.pumpWidget(const MyApp());
+  await tester.pumpWidget(MyApp(apiClient: fakeApiClient()));
   await tester.tap(find.text('Tambah Experience'));
   await tester.pumpAndSettle();
   // The menu SnackBar follows us to the new route; hide it so it does not
@@ -70,7 +72,7 @@ void main() {
     WidgetTester tester,
   ) async {
     ignoreTestFontOverflow();
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(MyApp(apiClient: fakeApiClient()));
 
     await tester.tap(find.byTooltip('Open navigation menu'));
     await tester.pumpAndSettle();
